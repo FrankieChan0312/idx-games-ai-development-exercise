@@ -67,3 +67,36 @@ Validation performed:
 - Focused deterministic checks: 8/8 PASS
 
 The manual Chrome validation occurred after the Codex implementation session and therefore is not itself part of the raw Codex conversation record.
+
+## Phase 3 — Playable Browser UI
+
+Tooling:
+
+- Tool: OpenAI Codex CLI 0.154.0
+- Model: GPT-6 Astra
+- Reasoning effort: Medium
+- Fast mode: Enabled
+
+Phase 3 added the playable human-vs-human browser interface using the already validated `game.js` engine.
+
+Browser validation performed manually:
+
+- X normal win: PASS
+- O normal win: PASS
+- O Komi win: PASS
+- Occupied-square rejection: PASS
+- Play Again/reset: PASS
+- Post-game board lock: PASS
+- Exhaustive regression after UI integration: PASS
+
+Regression result:
+
+- X normal wins: 131184
+- O normal wins: 77904
+- O Komi wins: 46080
+- Draws: 0
+- Total terminal legal sequences: 255168
+- Maximum legal-move depth: 9
+- Visited game-tree nodes: 549946
+
+The manual Chrome interaction tests occurred after the Codex implementation session and are therefore not themselves contained in the raw Codex conversation record.
