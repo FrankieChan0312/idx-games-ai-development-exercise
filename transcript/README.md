@@ -2,7 +2,7 @@
 
 ## Tooling
 
-- Tool: OpenAI Codex CLI 0.154.0
+- Tool: OpenAI Codex CLI 0.154.0 for the subsequent development rollouts; the first Phase 1 attempt used Codex Desktop as noted below.
 - Model: GPT-5.6 Sol
 - Reasoning effort: High
 - Environment: Windows PowerShell
@@ -16,6 +16,8 @@ Two Codex rollout files were generated during the initial requirements-analysis 
 - `raw/rollout-2026-09-22T11-35-24-01a0c72e-bd2f-7ef3-b586-85334dc03196.jsonl`
 
 Both files contain the exercise prompt. This phase was analysis-only and did not modify the application.
+
+The first rollout, at 11:32:53, was an aborted Codex Desktop 0.155.0-alpha.9.2 session (source: `vscode`) from a different workspace. It is deliberately retained as part of the honest development record. The subsequent rollouts used Codex CLI 0.154.0.
 
 The analysis established:
 
@@ -77,6 +79,8 @@ Tooling:
 - Reasoning effort: Medium
 - Fast mode: Enabled
 
+The Phase 3 Fast mode record came from the visible session mode/header used during development; that rollout's structured service-tier metadata did not independently record a tier value.
+
 Phase 3 added the playable human-vs-human browser interface using the already validated `game.js` engine.
 
 Browser validation performed manually:
@@ -118,3 +122,33 @@ Phase 4 created the required candidate-facing documentation:
 The documentation was written after reviewing the implementation, exhaustive validator, earlier requirements-analysis transcript, git history, and recorded browser-validation evidence.
 
 No application code, tests, or game rules were changed during this phase.
+
+## Phase 5 — Final Submission Audit
+
+Tooling:
+
+- Tool: OpenAI Codex CLI 0.154.0
+- Model: GPT-6 Astra
+- Reasoning effort: High
+- Fast mode: Enabled
+
+The final submission audit reviewed repository structure, git history, application integration, exhaustive validation, documentation consistency, transcript evidence, static-serving readiness, and interview readiness.
+
+Audit results:
+
+- BLOCKER: none
+- JavaScript syntax checks: PASS
+- Exhaustive validator rerun: PASS
+- X normal wins: 131184
+- O normal wins: 77904
+- O Komi wins: 46080
+- Draws: 0
+- Total terminal legal sequences: 255168
+- Maximum legal-move depth: 9
+- Visited game-tree nodes: 549946
+- Focused deterministic checks: 8/8 PASS
+- Committed plaintext credential-pattern scan: no matches found
+
+The audit identified two low-risk record issues: stale wording in `docs/DESIGN.md` and incomplete tooling/session provenance in this README. Both were corrected and reviewed before the final checkpoint.
+
+No application code, game rules, tests, or raw prior-session transcripts were changed during those corrections.
