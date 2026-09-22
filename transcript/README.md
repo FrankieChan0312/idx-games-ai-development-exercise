@@ -152,3 +152,41 @@ Audit results:
 The audit identified two low-risk record issues: stale wording in `docs/DESIGN.md` and incomplete tooling/session provenance in this README. Both were corrected and reviewed before the final checkpoint.
 
 No application code, game rules, tests, or raw prior-session transcripts were changed during those corrections.
+
+## Phase 6 — Nigiri Player Assignment
+
+Tooling:
+
+- Tool: OpenAI Codex CLI 0.154.0
+- Model: GPT-6 Astra
+- Reasoning effort: Medium
+- Fast mode: Enabled
+
+This post-audit enhancement added a pre-game Nigiri-style odd/even draw for assigning X and O to Player 1 and Player 2.
+
+Flow:
+
+- Player 1 guesses Odd or Even.
+- The browser draws and reveals an integer from 1 through 10.
+- A correct guess lets Player 1 choose X or O.
+- An incorrect guess lets Player 2 choose X or O.
+- The other player receives the remaining mark.
+- X still takes the first tic-tac-toe move.
+- Play Again starts a new Nigiri round.
+
+The initial 1–9 draw range was corrected to 1–10 so Odd and Even each have five possible values.
+
+Validation:
+
+- 120 scripted Nigiri/UI scenarios: PASS
+- Manual Chrome Nigiri/UI validation: PASS
+- Exhaustive regression: PASS
+- X normal wins: 131184
+- O normal wins: 77904
+- O Komi wins: 46080
+- Draws: 0
+- Total terminal legal sequences: 255168
+- Maximum legal-move depth: 9
+- Visited game-tree nodes: 549946
+
+Nigiri is only a human-player-to-X/O assignment layer. `game.js` and the validated X/O game rules were unchanged.
