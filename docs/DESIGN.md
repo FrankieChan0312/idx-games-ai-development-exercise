@@ -24,7 +24,7 @@ part of the assessment evidence.
 | What if move nine both fills the board and creates a line? | Normal victory takes precedence. A ninth-move X line is `X_WIN`, never Komi. |
 | Who receives the fewer-marks tiebreak? | Always O: a full reachable board contains five X marks and four O marks. The engine can award O directly. |
 | What happens after a result? | The engine rejects every further move; the UI disables the board and preserves the result. |
-| What does reset do, and when is it available? | Play Again appears only after a result. It creates a fresh empty game, clears the old result, restores X's turn, and focuses the first square. Reloading also starts fresh. |
+| What does reset do, and when is it available? | Play Again appears only after a result. It creates a fresh empty game, clears the old result and assignment, requires a new Nigiri round, and focuses the Odd guess button. X moves first after the new assignment. Reloading also starts fresh. |
 | Are scores, persistence, or computer play required? | No. Score tracking and persistence add state beyond a single game; a computer opponent adds behavior beyond the two-human-player brief. All were omitted to keep the exercise focused. |
 
 The player-facing rules are in [RULES.md](RULES.md).
@@ -58,6 +58,26 @@ Its balance tradeoff is explicit: every line-free full board awards O.
 Competitive balance was not established by the validation, and the sequence
 counts below are not player win probabilities.
 
+### Nigiri assignment layer
+
+Nigiri is a thin pre-game human-player assignment layer. Before each game,
+Player 1 guesses Odd or Even, then the UI randomly draws and reveals an
+integer from 1 through 10. A correct guess lets Player 1 explicitly choose
+X or O; an incorrect guess gives Player 2 that choice. The other player
+receives the remaining mark. The board stays locked until assignment is
+complete, and the assignment cannot then be changed manually. X still moves
+first. Play Again clears the assignment and requires a new Nigiri round.
+
+The draw range was deliberately changed from 1–9 to 1–10: the former has
+five odd and four even values, while the latter has five of each. This makes
+the parity draw symmetric; it does not establish competitive balance for
+the underlying game.
+
+`game.js` was not changed and still operates only in X/O terms. `app.js`
+generates the Nigiri draw with browser-side `Math.random()` and maps Player 1
+and Player 2 to X/O after the chooser selects a mark. Nigiri randomness never
+enters the game engine or changes legal X/O game states.
+
 ## Termination and no-draw arguments
 
 Each valid move fills exactly one previously empty square. Marks are never
@@ -65,6 +85,10 @@ removed during a game. Since there are only nine squares, at most nine valid
 moves can occur. A normal win may terminate the game earlier; otherwise the
 ninth move fills the board and Komi terminates it. Invalid attempts do not
 advance the game, and a reset begins a separate game.
+
+Waiting for a Nigiri guess or an X/O choice is user inactivity, not a
+game-state transition. The legal-move bound assumes players complete the
+pre-game choices and continue playing.
 
 Every normal winning line terminates with X or O as the winner. If no line
 exists after nine moves, `O_KOMI` is terminal. Before then, a line-free board
@@ -78,8 +102,8 @@ ended play.
 | File or directory | Responsibility |
 | --- | --- |
 | `game.js` | DOM-independent single source of truth, exposed as `KomiGame`. Defines winning lines, outcomes, initial state, board evaluation, legal moves, and move application. |
-| `index.html` | Page structure and minimal embedded CSS: nine native button cells, a live status region, and Play Again. Loads the engine before the UI adapter. |
-| `app.js` | UI adapter. Sends selections to the engine and renders its state as marks, disabled cells, accessible labels, turn/result text, and reset visibility. |
+| `index.html` | Page structure and minimal embedded CSS: Nigiri guess and mark-choice buttons, revealed draw and assignment, nine native button cells, a live status region, and Play Again. Loads the engine before the UI adapter. |
+| `app.js` | UI adapter and pre-game assignment layer. Runs Nigiri, maps human players to marks, blocks moves until assignment, sends board selections to the engine, and renders marks, disabled cells, accessible labels, human-player turn/result text, and reset visibility. |
 | `tests/exhaustive.js` | Eight focused checks and recursive exhaustive validation of the production engine, exposed as `KomiValidation.run()`. |
 | `tests/exhaustive.html` | Browser test entry point. Loads the engine and validator and displays PASS with the report, or FAIL with the error. No server is required. |
 | `transcript/` | Raw Codex rollout files and a README recording phase context and validation evidence. |
@@ -91,9 +115,10 @@ Terminal states have no next player and no legal moves. Board evaluation
 checks winning lines before checking fullness.
 
 The UI does not implement its own winner detection. It maps terminal engine
-outcomes to exactly `Player X won`, `Player O won`, or
-`Player O won with Komi`. Play Again calls `createGame()` and renders the
-fresh state.
+outcomes to `Player 1 won` or `Player 2 won`, adding `with Komi` for the human
+assigned O when the outcome is `O_KOMI`. Turn text includes the human and mark,
+such as `Player 2 (X)'s turn`. Play Again calls `createGame()`, clears the
+Nigiri result and assignment, and renders the locked board for a new guess.
 
 ## Exhaustive verification
 
@@ -140,6 +165,11 @@ Verified results recorded for Node and Chrome:
 | Visited game-tree nodes | 549946 |
 | Focused deterministic checks | 8/8 PASS |
 
+The post-Nigiri exhaustive regression reproduced these same results:
+`X_WIN 131184`, `O_WIN 77904`, `O_KOMI 46080`, `draws 0`, `total 255168`,
+`maxDepth 9`, and `visitedNodes 549946`. The exhaustive game-tree proof and
+counts remain unchanged because Nigiri does not alter legal X/O game states.
+
 The eight focused checks cover an X row win, an O normal win, a diagonal
 win, occupied-square state/turn preservation, post-terminal rejection for
 all outcomes, move-nine normal-win precedence, full-board Komi, and invalid
@@ -151,7 +181,15 @@ rejection, Play Again/reset, and post-game locking. Exhaustive regression
 also passed after UI integration. These are recorded validation results,
 not a claim of new browser testing during documentation work.
 
-The [transcript README](../transcript/README.md) records the manual Chrome
+Manual Chrome Nigiri/UI validation also passed, as reported after review:
+pre-game board locking; Odd/Even guesses and revealed draws; correct guesses
+giving Player 1 the choice and incorrect guesses giving Player 2 the choice;
+chooser selection of either X or O; correct human-player mapping for X wins,
+O wins, and `O_KOMI`; and Play Again requiring a new Nigiri round. Exhaustive
+regression remained unchanged. These are reported completed checks, not new
+browser testing performed during this documentation update.
+
+The [transcript README](../transcript/README.md) records the earlier manual Chrome
 checks, which occurred after the implementation sessions and are not
 themselves in the raw Codex conversations. To rerun the browser validator,
 open `tests/exhaustive.html` directly in Chrome; reload to repeat it.

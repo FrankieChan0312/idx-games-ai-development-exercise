@@ -25,16 +25,26 @@
         <h1>Komi Tic-Tac-Toe</h1>
         <p>Two players share this board. X starts. If the board fills without three in a row, O wins the Komi tiebreak.</p>
         <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div id="nigiri-guesses" role="group" aria-label="Player 1's Nigiri guess">
+            <button type="button" data-guess="Odd">Odd</button>
+            <button type="button" data-guess="Even">Even</button>
+        </div>
+        <p id="nigiri-result" aria-live="polite" aria-atomic="true" hidden></p>
+        <div id="mark-choices" role="group" aria-describedby="status" aria-label="Choose your mark" hidden>
+            <button type="button" data-mark="X">X</button>
+            <button type="button" data-mark="O">O</button>
+        </div>
+        <p id="assignment" aria-live="polite" aria-atomic="true" hidden></p>
         <div id="board" role="group" aria-label="Tic-tac-toe board">
-            <button type="button" data-index="0" aria-label="Row 1, column 1, empty"></button>
-            <button type="button" data-index="1" aria-label="Row 1, column 2, empty"></button>
-            <button type="button" data-index="2" aria-label="Row 1, column 3, empty"></button>
-            <button type="button" data-index="3" aria-label="Row 2, column 1, empty"></button>
-            <button type="button" data-index="4" aria-label="Row 2, column 2, empty"></button>
-            <button type="button" data-index="5" aria-label="Row 2, column 3, empty"></button>
-            <button type="button" data-index="6" aria-label="Row 3, column 1, empty"></button>
-            <button type="button" data-index="7" aria-label="Row 3, column 2, empty"></button>
-            <button type="button" data-index="8" aria-label="Row 3, column 3, empty"></button>
+            <button type="button" data-index="0" aria-label="Row 1, column 1, empty" disabled></button>
+            <button type="button" data-index="1" aria-label="Row 1, column 2, empty" disabled></button>
+            <button type="button" data-index="2" aria-label="Row 1, column 3, empty" disabled></button>
+            <button type="button" data-index="3" aria-label="Row 2, column 1, empty" disabled></button>
+            <button type="button" data-index="4" aria-label="Row 2, column 2, empty" disabled></button>
+            <button type="button" data-index="5" aria-label="Row 2, column 3, empty" disabled></button>
+            <button type="button" data-index="6" aria-label="Row 3, column 1, empty" disabled></button>
+            <button type="button" data-index="7" aria-label="Row 3, column 2, empty" disabled></button>
+            <button type="button" data-index="8" aria-label="Row 3, column 3, empty" disabled></button>
         </div>
         <button type="button" id="play-again" hidden>Play Again</button>
         <noscript><p>Enable JavaScript to play.</p></noscript>

@@ -9,6 +9,23 @@ Win by making a straight line of three of your own marks. If the board fills
 without either player making a line, O wins the Komi tiebreak described below.
 There are no draws.
 
+## Before each game: Nigiri
+
+1. Player 1 guesses **Odd** or **Even**.
+2. The application randomly draws and reveals an integer from **1 through
+   10**. This range contains five odd and five even numbers, so the parity
+   draw is symmetric.
+3. If Player 1 guessed correctly, Player 1 chooses whether to be **X** or
+   **O**. If Player 1 guessed incorrectly, Player 2 makes that choice instead.
+4. The chooser must explicitly select a mark. The other player automatically
+   receives the other mark. The assignment is displayed as `Player 1 = X /
+   Player 2 = O` or `Player 1 = O / Player 2 = X` and cannot be changed manually.
+5. **X always takes the first tic-tac-toe move**, whichever human received X.
+
+The board does not accept moves until Nigiri and mark assignment are complete.
+Turn messages identify both the human player and mark, for example
+`Player 2 (X)'s turn`. Nigiri does not change the normal-win or Komi rules below.
+
 ## Taking turns
 
 On your turn, place your mark in exactly one empty square. This is a legal
@@ -50,14 +67,15 @@ only to a full board with no winning line.
 
 The result announcement is exactly one of:
 
-- `Player X won` for a normal X victory.
-- `Player O won` for a normal O victory.
-- `Player O won with Komi` for the full-board tiebreak.
+- `Player 1 won` or `Player 2 won` for a normal victory, according to which
+  human holds the winning mark.
+- `Player 1 won with Komi` or `Player 2 won with Komi` for the full-board
+  tiebreak, according to which human holds O.
 
 After any result, no further moves are allowed. The final board and result
 remain visible. Select **Play Again**, which appears after the game ends,
-to clear all nine squares and the previous result and start a new game with
-X to move.
+to clear all nine squares, the previous result, and the previous assignment.
+Each new game requires a new Nigiri round and a new X/O choice before X moves.
 
 Each game ends within nine legal moves if the players continue playing.
 Invalid attempts and time spent waiting do not count as moves.
