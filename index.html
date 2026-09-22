@@ -1,10 +1,43 @@
 ﻿<!doctype html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>IDX Smoke Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Komi Tic-Tac-Toe</title>
+    <style>
+        body { margin: 0; font-family: system-ui, sans-serif; color: #202020; background: #fafafa; }
+        main { max-width: 28rem; margin: 3rem auto; padding: 0 1rem; }
+        h1 { font-size: 1.8rem; }
+        p { line-height: 1.5; }
+        #status { font-size: 1.2rem; font-weight: bold; }
+        #board { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; max-width: 20rem; }
+        button { font: inherit; cursor: pointer; }
+        #board button { aspect-ratio: 1; font-size: 2.5rem; border: 2px solid #666; border-radius: .25rem; background: white; color: #202020; }
+        #board button:disabled { cursor: default; background: #ececec; opacity: 1; }
+        button:focus-visible { outline: 3px solid #145bcc; outline-offset: 3px; }
+        #play-again { margin-top: 1rem; padding: .6rem 1rem; }
+    </style>
+    <script src="game.js" defer></script>
+    <script src="app.js" defer></script>
 </head>
 <body>
-    <h1>IDX laptop ready</h1>
+    <main>
+        <h1>Komi Tic-Tac-Toe</h1>
+        <p>Two players share this board. X starts. If the board fills without three in a row, O wins the Komi tiebreak.</p>
+        <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+        <div id="board" role="group" aria-label="Tic-tac-toe board">
+            <button type="button" data-index="0" aria-label="Row 1, column 1, empty"></button>
+            <button type="button" data-index="1" aria-label="Row 1, column 2, empty"></button>
+            <button type="button" data-index="2" aria-label="Row 1, column 3, empty"></button>
+            <button type="button" data-index="3" aria-label="Row 2, column 1, empty"></button>
+            <button type="button" data-index="4" aria-label="Row 2, column 2, empty"></button>
+            <button type="button" data-index="5" aria-label="Row 2, column 3, empty"></button>
+            <button type="button" data-index="6" aria-label="Row 3, column 1, empty"></button>
+            <button type="button" data-index="7" aria-label="Row 3, column 2, empty"></button>
+            <button type="button" data-index="8" aria-label="Row 3, column 3, empty"></button>
+        </div>
+        <button type="button" id="play-again" hidden>Play Again</button>
+        <noscript><p>Enable JavaScript to play.</p></noscript>
+    </main>
 </body>
 </html>
