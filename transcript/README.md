@@ -40,3 +40,30 @@ During the first transcript checkpoint, one source JSONL remained open by a Code
 An initial credential-pattern scan produced one `sk-...` match inside an opaque `encrypted_content` field. The repository copy was temporarily redacted during investigation, then restored byte-for-byte from the untouched source after confirming the match was inside encrypted payload data rather than plaintext configuration or conversation content.
 
 The final credential scan ignores opaque encrypted payload fields and checks the remaining plaintext transcript content for credential-shaped strings.
+
+## Phase 2 — Game Rules and Exhaustive Validation
+
+Tooling:
+
+- Tool: OpenAI Codex CLI 0.154.0
+- Model: GPT-6 Astra
+- Reasoning effort: High
+- Fast mode: Enabled
+
+Phase 2 implemented reusable DOM-independent game rules plus an exhaustive game-tree validator.
+
+Validation performed:
+
+- JavaScript syntax checks: PASS
+- Exhaustive Node execution: PASS
+- Manual Chrome execution of `tests/exhaustive.html`: PASS
+- X normal wins: 131184
+- O normal wins: 77904
+- O Komi wins: 46080
+- Draws: 0
+- Total terminal legal sequences: 255168
+- Maximum legal-move depth: 9
+- Visited game-tree nodes: 549946
+- Focused deterministic checks: 8/8 PASS
+
+The manual Chrome validation occurred after the Codex implementation session and therefore is not itself part of the raw Codex conversation record.
