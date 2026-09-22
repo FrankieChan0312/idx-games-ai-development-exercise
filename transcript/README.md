@@ -190,3 +190,13 @@ Validation:
 - Visited game-tree nodes: 549946
 
 Nigiri is only a human-player-to-X/O assignment layer. `game.js` and the validated X/O game rules were unchanged.
+
+### Phase 6 transcript clarification
+
+The Nigiri work spans multiple raw sessions:
+
+- `rollout-2026-09-22T13-22-46-01a0c791-08fc-7093-87a6-6d7e90f7e91f.jsonl` — the initial direct Switch X/O attempt, retained as an abandoned approach.
+- `rollout-2026-09-22T13-32-37-01a0c79a-0dc3-7583-a420-cbb10eeb9706.jsonl` — the corrected Nigiri implementation, 1–10 fairness correction, validation, and documentation synchronization.
+- `rollout-2026-09-22T13-47-44-01a0c7a7-e673-7d23-b33b-e12cfa1d74d9.jsonl` — the post-Nigiri read-only submission audit.
+
+The abandoned Switch X/O attempt remains intentionally preserved as part of the full development record.
