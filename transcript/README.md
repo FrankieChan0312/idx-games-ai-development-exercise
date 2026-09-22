@@ -100,3 +100,21 @@ Regression result:
 - Visited game-tree nodes: 549946
 
 The manual Chrome interaction tests occurred after the Codex implementation session and are therefore not themselves contained in the raw Codex conversation record.
+
+## Phase 4 — Rules and Design Documentation
+
+Tooling:
+
+- Tool: OpenAI Codex CLI 0.154.0
+- Model: GPT-6 Astra
+- Reasoning effort: High
+- Fast mode: Enabled
+
+Phase 4 created the required candidate-facing documentation:
+
+- `docs/RULES.md`
+- `docs/DESIGN.md`
+
+The documentation was written after reviewing the implementation, exhaustive validator, earlier requirements-analysis transcript, git history, and recorded browser-validation evidence.
+
+No application code, tests, or game rules were changed during this phase.
