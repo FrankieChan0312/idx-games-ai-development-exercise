@@ -168,8 +168,8 @@ Natural git checkpoints preserved requirements analysis, engine/validator
 work, UI work, and their transcript evidence. Raw Codex rollout files are
 preserved under `transcript/raw/`, with capture context in its README. The
 record retains failed or abandoned attempts rather than presenting a
-curated claim of autonomous success. This documentation phase leaves its
-files uncommitted for candidate review.
+curated claim of autonomous success. The documentation was reviewed before
+being committed at the Phase 4 checkpoint.
 
 ## Known limitations and unfinished work
 
