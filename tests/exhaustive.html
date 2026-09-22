@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Komi tic-tac-toe exhaustive validation</title>
+</head>
+<body>
+  <h1>Komi tic-tac-toe exhaustive validation</h1>
+  <p>Runs on load. Reload to run again. No server is required.</p>
+  <pre id="results">Running focused checks and every legal move sequence...</pre>
+  <script src="../game.js"></script>
+  <script src="exhaustive.js"></script>
+  <script>
+    "use strict";
+    // Let the running message paint before the synchronous traversal starts.
+    setTimeout(() => {
+      const results = document.getElementById("results");
+      try {
+        const report = KomiValidation.run();
+        results.textContent = "PASS\n" + JSON.stringify(report, null, 2);
+      } catch (error) {
+        results.textContent = "FAIL\n" + error.stack;
+        console.error(error);
+      }
+    }, 0);
+  </script>
+</body>
+</html>
